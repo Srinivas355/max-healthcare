@@ -10,6 +10,9 @@ pipeline {
                 }
         }
         stage ("maven build") {
+            when{
+               expression { params.envname == "dev" }
+            } 
             steps {
                    sh "mvn clean package"
                 }
@@ -17,17 +20,24 @@ pipeline {
         stage ("Dev Deploy") {
             when{
                expression { params.envname == "dev" }
+            }    
             steps {
               echo params.envname
               echo "Deploy to Dev"     
             }
         }  
         stage ("Test Deploy") {
+             when{
+               expression { params.envname == "test" }
+            } 
             steps {
                echo "Deploy to Test"     
             }
         }
         stage ("prod Deploy") {
+             when{
+               expression { params.envname == "prod" }
+            } 
             steps {
                echo "Deploy to prod"     
             }
