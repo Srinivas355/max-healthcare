@@ -16,6 +16,7 @@ pipeline {
             }
         stage ("Dev Deploy") {
             steps {
+            echo params.envname
                echo "Deploy to Dev"     
             }
         }  
