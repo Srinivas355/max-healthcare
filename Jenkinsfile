@@ -21,12 +21,12 @@ pipeline {
         }  
         stage ("Test Deploy") {
             steps {
-               echo "Deploy to Dev"     
+               echo "Deploy to Test"     
             }
         }
         stage ("prod Deploy") {
             steps {
-               echo "Deploy to Dev"     
+               echo "Deploy to prod"     
             }
         }     
     }
