@@ -15,6 +15,8 @@ pipeline {
                 }
             }
         stage ("Dev Deploy") {
+            when{
+               expression { params.envname == "dev" }
             steps {
               echo params.envname
               echo "Deploy to Dev"     
