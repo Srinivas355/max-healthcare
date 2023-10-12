@@ -1,6 +1,9 @@
 pipeline {
     agent any
-        stages{
+    parameters {
+             choice choices: ['dev', 'test', 'prod'], description: 'choose the environment to deploy', name: 'envname'
+     }
+     stages{
             stage ("git checkout"){
                 steps {
                  git branch: 'main', credentialsId: 'Git-hub', url: 'https://github.com/Srinivas355/max-healthcare.git'
