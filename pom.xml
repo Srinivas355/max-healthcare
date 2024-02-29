@@ -34,13 +34,13 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>Srinivas Releases Nexus Repository</name>
-	      <url>http://13.232.252.223:8081/repository/flipkart-dev-release/</url>
+	      <url>http://13.127.211.31:8081/repository/flipkart-dev-release/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Srinivas Snapshot Nexus Repository </name>
-	      <url>http://13.232.252.223:8081/repository/flipkart-dev-snapshot/</url>
+	      <url>http://13.127.211.31:8081/repository/flipkart-dev-snapshot/</url>
 	    </snapshotRepository>
 	    
 </distributionManagement>
