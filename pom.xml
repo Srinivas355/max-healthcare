@@ -18,7 +18,7 @@
 		<sonar.password>Srinivas</sonar.password>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
+ </properties>
   
   <dependencies>
     <dependency>
@@ -28,6 +28,22 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+<distributionManagement>
+	
+	    <repository>
+	      <id>nexus</id>
+	      <name>Srinivas Releases Nexus Repository</name>
+	      <url>http://13.232.252.223:8081/repository/flipkart-dev-release/</url>
+	    </repository>
+	    
+	    <snapshotRepository>
+	      <id>nexus</id>
+	      <name>Srinivas Snapshot Nexus Repository </name>
+	      <url>http://13.232.252.223:8081/repository/flipkart-dev-snapshot/</url>
+	    </snapshotRepository>
+	    
+</distributionManagement>
   <build>
      <finalName>max-healthcare</finalName>
      <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
