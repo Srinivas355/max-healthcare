@@ -1,46 +1,27 @@
-pipeline {
-    agent any
-    parameters {
-         choice choices: ['dev', 'test', 'prod'], description: 'choose the environment to deploy', name: 'envname'
-     }
-     stages{
-        stage ("git checkout"){
-            steps {
-                 git branch: 'main', credentialsId: 'Git-hub', url: 'https://github.com/Srinivas355/max-healthcare.git'
-                }
-        }
-        stage ("maven build") {
-            when{
-               expression { params.envname == "dev" }
-            } 
-            steps {
-                   sh "mvn clean package"
-                }
-            }
-        stage ("Dev Deploy") {
-            when{
-               expression { params.envname == "dev" }
-            }    
-            steps {
-              echo params.envname
-              echo "Deploy to Dev"     
-            }
-        }  
-        stage ("Test Deploy") {
-             when{
-               expression { params.envname == "test" }
-            } 
-            steps {
-               echo "Deploy to Test"     
-            }
-        }
-        stage ("prod Deploy") {
-             when{
-               expression { params.envname == "prod" }
-            } 
-            steps {
-               echo "Deploy to prod"     
-            }
-        }     
+node {
+    
+   def mavenHome = tool name: "maven3.8.4"
+    
+    stage('git checkout'){
+        git branch: 'main', credentialsId: 'Srinivas355', url: 'https://github.com/Srinivas355/max-healthcare.git'
     }
+    
+    stage('Build'){
+        sh "$mavenHome/bin/mvn clean package"
+    }
+    
+    stage('sonarqube Report'){
+        sh "$mavenHome/bin/mvn sonar:sonar"
+    }
+    
+    stage('upload artifacts into nexus'){
+        sh "$mavenHome/bin/mvn deploy"
+    }
+    
+    stage('Deploy app into Tomcat'){
+      sshagent(['da1f4c23-0128-4a08-8dac-c7e9ecca7fbe']) {
+        sh "scp -o  StrictHostKeyChecking=no target/max-healthcare.war ec2-user@13.234.114.106:/opt/tomcat9/webapps"
+      }
+    }
+    
 }
